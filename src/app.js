@@ -6,10 +6,7 @@ import {
 	graphiqlKoa
 } from 'graphql-server-koa'
 import './dbs/mongo'
-import {
-	accountSchema,
-	userSchema
-} from './data/schema'
+import schema from './data/schema'
 
 const PORT = 3001
 const app = new Koa()
@@ -26,18 +23,19 @@ app.use(async(ctx, next) => {
 app.use(koaBody())
 
 
-router.get('/account', graphqlKoa((ctx) => {
+router.get('/graphql', graphqlKoa((ctx) => {
 	return {
-		schema: accountSchema,
+		schema: schema,
 		context: {
 			userId: ctx.cookies.get('userId')
 		}
 	}
 }))
 
-router.post('/account', graphqlKoa((ctx) => {
+router.post('/graphql', graphqlKoa((ctx) => {
 	return {
-		schema: accountSchema,
+		schema: schema,
+		pretty: true,
 		context: {
 			userId: ctx.cookies.get('userId')
 		}
@@ -45,12 +43,8 @@ router.post('/account', graphqlKoa((ctx) => {
 }))
 
 router.get('/graphiql', graphiqlKoa({
-	endpointURL: '/account'
+	endpointURL: '/graphql'
 }));
-
-router.get('/', ctx => {
-	ctx.body = '404'
-})
 
 app.use(router.routes())
 app.use(router.allowedMethods())

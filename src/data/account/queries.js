@@ -10,7 +10,7 @@ import {
     AccountInput
 } from './models'
 
-const Account = {
+const account = {
     type: AccountType,
     args: {
         id: {
@@ -23,7 +23,7 @@ const Account = {
     }
 }
 
-const Accounts = {
+const accounts = {
     type: new GraphQLList(AccountType),
     args: {},
     resolve(root, params, options) {
@@ -32,6 +32,6 @@ const Accounts = {
 }
 
 export default {
-    Account,
-    Accounts
+    account,
+    accounts
 }

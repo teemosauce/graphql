@@ -3,38 +3,27 @@ import {
     GraphQLSchema
 } from 'graphql'
 
-// import UserQueries from './user/queries'
-// import UserMutations from './user/mutations'
+import UserQueries from './user/queries'
+import UserMutations from './user/mutations'
 
 import AccountQueries from './account/queries'
 import AccountMutations from './account/mutations'
 
-// const userSchema = new GraphQLSchema({
-//     query: new GraphQLObjectType({
-//         name: 'Query',
-//         fields: UserQueries
-//     }),
-
-//     mutation: new GraphQLObjectType({
-//         name: 'Mutation',
-//         fields: UserMutations
-//     })
-// })
-
-const accountSchema = new GraphQLSchema({
+const schema = new GraphQLSchema({
     query: new GraphQLObjectType({
         name: 'Query',
-        fields: AccountQueries
+        fields: {
+            ...UserQueries,
+            ...AccountQueries
+        }
     }),
 
     mutation: new GraphQLObjectType({
         name: 'Mutation',
-        fields: AccountMutations
+        fields: {
+            ...UserMutations,
+            ...AccountMutations
+        }
     })
 })
-
-
-export {
-    // userSchema,
-    accountSchema
-} 
+export default schema

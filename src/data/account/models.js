@@ -16,19 +16,16 @@ const schema = new Schema({
     email: String,
     username: String,
     password: String,
-    openKey: String,
-    userId: Types.ObjectId,
+    user_id: Types.ObjectId,
     meta: {
         type: Types.Mixed,
         default: {}
-    },
-    createTime: {
-        type: Types.Long,
-        default: Date.now
-    },
-    modifyTime: {
-        type: Types.Long,
-        default: Date.now
+    }
+}, {
+    collection: 'account',
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
     }
 })
 
@@ -51,17 +48,27 @@ export let AccountType = new GraphQLObjectType({
         password: {
             type: GraphQLString
         },
-        openKey: {
+        user_id: {
             type: GraphQLString
         },
-        userId: {
+        meta: {
+            type: new GraphQLObjectType({
+                name: 'Meta',
+                fields: {
+                    value: {
+                        type: GraphQLString
+                    },
+                    label: {
+                        type: GraphQLString
+                    }
+                }
+            })
+        },
+        created_at: {
             type: GraphQLString
         },
-        createTime: {
-            type: GraphQLInt
-        },
-        modifyTime: {
-            type: GraphQLInt
+        updated_at: {
+            type: GraphQLString
         }
     }
 })
@@ -81,17 +88,22 @@ export let AccountInput = new GraphQLInputObjectType({
         password: {
             type: GraphQLString
         },
-        openKey: {
+        user_id: {
             type: GraphQLString
         },
-        userId: {
-            type: GraphQLString
-        },
-        createTime: {
-            type: GraphQLInt
-        },
-        modifyTime: {
-            type: GraphQLInt
+        meta: {
+            type: new GraphQLInputObjectType({
+                name: 'MetaInput',
+                fields: {
+                    value: {
+                        type: GraphQLString
+                    },
+                    label: {
+                        type: GraphQLString
+                    }
+                }
+            })
         }
     }
 })
+

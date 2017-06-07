@@ -1,0 +1,18 @@
+GET http://localhost:3000/api/dashboards/db/apicreate HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJrIjoiOWFMWmxyR1JLTkdwWENkMG1yUFR3OHd0dEZmWnpRbG8iLCJuIjoiZWRpdG9yIiwiaWQiOjF9
+
+
+POST http://localhost:3000/api/dashboards/db HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJrIjoiOWFMWmxyR1JLTkdwWENkMG1yUFR3OHd0dEZmWnpRbG8iLCJuIjoiZWRpdG9yIiwiaWQiOjF9
+
+{
+  "dashboard": {
+    "id": 7,
+    "title": "apicreate"
+  },
+  "overwrite": false
+}
